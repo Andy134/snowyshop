@@ -4,17 +4,19 @@ import com.snowy.shop.constants.ProductStatus;
 import lombok.Getter;
 import lombok.Setter;
 
-import java.util.Set;
+import javax.persistence.Column;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
 
-@Setter
 @Getter
-public class ProductDto extends BaseDto{
-    private long id;
+@Setter
+public class ProductInsertDto {
     private String name;
     private String description;
     private int quantity;
     private long price;
     private long commentPrice;
     private ProductStatus status;
-    private Set<CategoryDto> categories;
+    private long [] categoryIds;
 }
