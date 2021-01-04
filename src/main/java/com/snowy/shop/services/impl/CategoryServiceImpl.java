@@ -1,7 +1,7 @@
 package com.snowy.shop.services.impl;
 
 import com.snowy.shop.entity.Category;
-import com.snowy.shop.error.BussinessException;
+import com.snowy.shop.error.BusinessException;
 import com.snowy.shop.error.Errors;
 import com.snowy.shop.model.CategoryDto;
 import com.snowy.shop.model.CategoryInsertDto;
@@ -45,13 +45,13 @@ public class CategoryServiceImpl implements CategoryService {
 
     @Override
     public void delete(Long id) {
-        Category entity = categoryRepository.findById(id).orElseThrow(()->new BussinessException(Errors.DATA_NOT_FOUND));
+        Category entity = categoryRepository.findById(id).orElseThrow(()->new BusinessException(Errors.DATA_NOT_FOUND));
         categoryRepository.delete(entity);
     }
 
     @Override
     public CategoryDto findById(Long id) {
-        Category category = categoryRepository.findById(id).orElseThrow(()->new BussinessException(Errors.DATA_NOT_FOUND));
+        Category category = categoryRepository.findById(id).orElseThrow(()->new BusinessException(Errors.DATA_NOT_FOUND));
         return modelMapper.map(category, CategoryDto.class);
     }
 }

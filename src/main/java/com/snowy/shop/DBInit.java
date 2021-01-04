@@ -2,10 +2,7 @@ package com.snowy.shop;
 
 import com.snowy.shop.constants.OrderStatus;
 import com.snowy.shop.constants.ProductStatus;
-import com.snowy.shop.entity.Category;
-import com.snowy.shop.entity.Order;
-import com.snowy.shop.entity.Product;
-import com.snowy.shop.entity.User;
+import com.snowy.shop.entity.*;
 import com.snowy.shop.repository.CategoryRepository;
 import com.snowy.shop.repository.OrderRepository;
 import com.snowy.shop.repository.ProductRepository;
@@ -55,8 +52,16 @@ class DBInit implements CommandLineRunner {
         }
         productRepo.saveAll(products);
 
-        User user = User.builder().name("admin").build();
-        userRepository.save(user);
+        Role roleAdmin = Role.builder().name("ADMIN").build();
+        Role roleUser = Role.builder().name("USER").build();
+
+        Set<User> setOfUser = new HashSet<>();
+        User admin = User.builder().name("admin admin").role(roleAdmin).build();
+        User user = User.builder().name("user user").role(roleUser).build();
+        setOfUser.add(admin);
+        setOfUser.add(user);
+
+        userRepository.saveAll(setOfUser);
 
         // Order
         int orderNo = 5;

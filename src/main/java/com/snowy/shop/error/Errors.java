@@ -1,16 +1,33 @@
 package com.snowy.shop.error;
 
+import org.springframework.http.HttpStatus;
+
 public enum Errors {
-    DATA_NOT_FOUND(9001,"Data not found"),
-    INTERNAL_ERROR(9999, "Internal errors")
-    ;
+    DATA_NOT_FOUND(9001, HttpStatus.BAD_REQUEST, "Data not found"),
+    INTERNAL_ERROR(9999, HttpStatus.INTERNAL_SERVER_ERROR, "Internal errors");
 
-    public int code;
-    public String msg;
+    private final int code;
 
-    Errors(int code, String msg){
+    private final HttpStatus httpStatus;
+
+    private final String message;
+
+    Errors(int code, HttpStatus httpStatus, String message) {
         this.code = code;
-        this.msg = msg;
+        this.httpStatus = httpStatus;
+        this.message = message;
+    }
+
+    public int getCode() {
+        return this.code;
+    }
+
+    public HttpStatus getHttpStatus() {
+        return httpStatus;
+    }
+
+    public String getMessage() {
+        return message;
     }
 
 }

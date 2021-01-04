@@ -1,12 +1,15 @@
 package com.snowy.shop.entity;
 
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 
 import javax.persistence.*;
+import java.util.Set;
 
 @Getter
 @Setter
+@Builder
+@AllArgsConstructor
+@NoArgsConstructor
 @Entity
 public class Role extends BaseEntity{
     @Id
@@ -15,4 +18,6 @@ public class Role extends BaseEntity{
     private long id;
     @Column(nullable = false, unique = true, length = 50)
     private String name;
+    @OneToMany(fetch = FetchType.LAZY, cascade = {CascadeType.PERSIST, CascadeType.MERGE}, mappedBy = "role")
+    private Set<User> users;
 }

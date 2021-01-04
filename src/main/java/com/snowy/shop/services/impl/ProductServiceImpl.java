@@ -3,7 +3,7 @@ package com.snowy.shop.services.impl;
 import com.snowy.shop.constants.ProductStatus;
 import com.snowy.shop.entity.Category;
 import com.snowy.shop.entity.Product;
-import com.snowy.shop.error.BussinessException;
+import com.snowy.shop.error.BusinessException;
 import com.snowy.shop.error.Errors;
 import com.snowy.shop.model.ProductDto;
 import com.snowy.shop.model.ProductInsertDto;
@@ -49,27 +49,27 @@ public class ProductServiceImpl implements ProductService {
     @Override
     public void save(ProductInsertDto productDto) {
         Product productEntity = modelMapper.map(productDto, Product.class);
-        Set<Category> lstCategory = Arrays.stream(productDto.getCategoryIds()).mapToObj(id -> categoryRepository.findById(id).orElseThrow(() -> new BussinessException(Errors.DATA_NOT_FOUND))).collect(Collectors.toSet());
+        Set<Category> lstCategory = Arrays.stream(productDto.getCategoryIds()).mapToObj(id -> categoryRepository.findById(id).orElseThrow(() -> new BusinessException(Errors.DATA_NOT_FOUND))).collect(Collectors.toSet());
         productEntity.setCategories(lstCategory);
         productRepository.save(productEntity);
     }
 
     @Override
     public void updateStatus(Long productId, ProductStatus status){
-        Product product = productRepository.findById(productId).orElseThrow(()->new BussinessException(Errors.DATA_NOT_FOUND));
+        Product product = productRepository.findById(productId).orElseThrow(()->new BusinessException(Errors.DATA_NOT_FOUND));
         product.setStatus(status);
         productRepository.save(product);
     }
 
     @Override
     public void delete(Long id) {
-        Product product = productRepository.findById(id).orElseThrow(()->new BussinessException(Errors.DATA_NOT_FOUND));
+        Product product = productRepository.findById(id).orElseThrow(()->new BusinessException(Errors.DATA_NOT_FOUND));
         productRepository.delete(product);
     }
 
     @Override
     public ProductDto findById(Long id) {
-        Product product = productRepository.findById(id).orElseThrow(()->new BussinessException(Errors.DATA_NOT_FOUND));
+        Product product = productRepository.findById(id).orElseThrow(()->new BusinessException(Errors.DATA_NOT_FOUND));
         return modelMapper.map(product, ProductDto.class);
     }
 

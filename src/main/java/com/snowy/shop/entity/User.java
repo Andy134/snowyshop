@@ -17,6 +17,6 @@ public class User extends BaseEntity{
     private long id;
     @Column(nullable = false, unique = true, length = 50)
     private String name;
-//    @ManyToOne
-//    private Role role;
+    @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE}, fetch = FetchType.LAZY)
+    private Role role;
 }
